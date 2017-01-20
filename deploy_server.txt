@@ -1,0 +1,8 @@
+# deploy to server test :  application gae id : (test) rupp-timetracking-test
+ 
+ mvn clean appengine:update -Ptest
+ 
+ 
+ # deploy to server prod :  application gae id : (prod) rupp-timetracking-prod
+ 
+ mvn clean appengine:update -Pprod
