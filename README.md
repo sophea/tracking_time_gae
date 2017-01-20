@@ -8,7 +8,8 @@ https://docs.google.com/document/d/1zp6EuTHZwYkK3gaJ_aVvdO-p37RMXBZ0C7IFov07yqk/
 -2 : go to this project location by console
 -3 : create class-path for eclipse :mvn eclipse:eclipse (opening with eclipse / STS)
 
--4 : run command mvn clean appengine:devserver
+-4 : run local environment command :
+  mvn clean appengine:devserver
 
 -5 : sample APIs : monitor api :
    - GET api : http://localhost:8080/monitor
@@ -20,23 +21,24 @@ https://docs.google.com/document/d/1zp6EuTHZwYkK3gaJ_aVvdO-p37RMXBZ0C7IFov07yqk/
  
  
  ======deploypment to gae server============
-run local environment :
+# run local environment :
  
 mvn clean appengine:devserver 
  
- application gae id : (test) rupp-timetracking-test
+# deploy to server test :  application gae id : (test) rupp-timetracking-test
  
  mvn clean appengine:update -Ptest
  
  
- application gae id : (prod) rupp-timetracking-prod
+ # deploy to server prod :  application gae id : (prod) rupp-timetracking-prod
  
  mvn clean appengine:update -Pprod
  
+ # appengine commands
  mvn help:describe -Dplugin=appengine
  
- ======release version
+ # ======release version
  mvn release:clean release:prepare
 
 
-==========Admin task======
+# ==========Admin task======
