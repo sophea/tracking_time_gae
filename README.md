@@ -34,3 +34,5 @@ mvn clean appengine:devserver
  mvn release:clean release:prepare
 
 # ==========Admin task======
+
+# Test server : https://rupp-timetracking-test.appspot.com
