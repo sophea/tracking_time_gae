@@ -1,0 +1,34 @@
+<html>
+<head>
+<script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
+<script>
+
+function getFragmentByName(name) {
+	var match = RegExp('[&#]' + name + '=([^&]*)').exec(window.location.hash);
+	return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+
+function getParameterByName(name) {
+	var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+	return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+
+$(function() { 
+	$.getJSON('/api/oauth2/token', 
+		{
+		    providerId:'facebook',
+		    access_token:getFragmentByName('access_token'),
+		    expires_in:getFragmentByName('expires_in'),
+		    grant_type:'token'
+		})
+	.done(function(session) {
+	 	alert(session.userId);
+	 });
+});
+
+</script>
+</head>
+<body>
+Hello You're signed in with facebook along creating user-profile.
+</body>
+</html>

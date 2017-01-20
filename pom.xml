@@ -1,0 +1,496 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.rupp.timetrack</groupId>
+    <artifactId>tracking-time</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>Backend time tracking instance for GAE</name>
+	
+    <developers>
+        <developer>
+            <id>Sophea</id>
+            <name>Sophea MAK</name>
+            <email>sopheamak@gmail.com</email>
+            <url>http://www.linkedin.com/in/sopheamak</url>
+        </developer>
+
+    </developers>
+    
+    <pluginRepositories>
+        <pluginRepository>
+            <id>sophea-github-releases</id>
+            <name>sophea Maven releases repo at GitHub</name>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>https://raw.github.com/sophea/mvn-repo/master/releases</url>
+        </pluginRepository>
+    </pluginRepositories>
+    <repositories>
+        <repository>
+            <id>sophea-github-releases</id>
+            <name>sophea Maven releases repo at GitHub</name>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>https://raw.github.com/sophea/mvn-repo/master/releases</url>
+        </repository>
+        
+    </repositories>
+      
+    
+    <!-- Specify hard-coded project properties here -->
+    <properties>
+        <gae.version>1.9.48</gae.version>
+        <gae.application.version>test</gae.application.version>
+        <gae.application.id>rupp-timetracking-test</gae.application.id>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring.version>4.0.5.RELEASE</spring.version>
+        <spring.security.version>3.1.4.RELEASE</spring.security.version>
+        <application.version>${project.version}</application.version>
+        <logging.level>ALL</logging.level>
+        <downloadSources>true</downloadSources>
+        <docrest-version>1.40</docrest-version>
+        <devserver.port>8080</devserver.port>
+        <json.diagnosticsDisabled>false</json.diagnosticsDisabled>
+        <json.errormsg />
+        <javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
+        <email.from.address>sopheamak@gmail.com</email.from.address>
+        <email.from.name>Sophea MAK</email.from.name>
+    </properties>
+
+    <dependencies>
+         <dependency>
+            <groupId>com.sma.security</groupId>
+            <artifactId>sm-user-security</artifactId>
+            <version>1.8</version>
+         </dependency>
+         
+         <dependency>
+	         <groupId>org.springframework.social</groupId>
+	            <artifactId>spring-social-facebook</artifactId>
+	            <version>2.0.3.RELEASE</version>
+	     </dependency>
+	     
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+    
+        <dependency>
+            <groupId>com.google.appengine</groupId>
+            <artifactId>appengine-api-1.0-sdk</artifactId>
+            <version>${gae.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.0</version>
+        </dependency>
+        <!-- These dependencies are here just for enabling logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+            <version>1.7.7</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.6.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.6.0</version>
+        </dependency>
+        <dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-core</artifactId>
+		    <version>2.6.0</version>
+		</dependency>
+         <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+        
+        
+         <!-- Spring -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+      
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wadpam</groupId>
+            <artifactId>docrest-doclet</artifactId>
+            <version>${docrest-version}</version>
+            <scope>compile</scope>
+            <exclusions>
+            <exclusion>
+            <groupId>org.slf4j</groupId>
+             <artifactId>slf4j-jdk14</artifactId>
+            </exclusion>
+            <exclusion>
+            <groupId>org.slf4j</groupId>
+             <artifactId>slf4j-api</artifactId>
+            </exclusion>
+            </exclusions>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.7</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>velocity-tools</groupId>
+            <artifactId>velocity-tools-view</artifactId>
+            <version>1.3</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jpa_3.0_spec</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jta_1.1_spec</artifactId>
+            <version>1.1.1</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.8</version>
+        </dependency>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
+      <dependency>
+          <groupId>joda-time</groupId>
+          <artifactId>joda-time</artifactId>
+          <version>2.8.1</version>
+      </dependency>
+    </dependencies>
+
+    <build>
+    
+          <resources>
+            <!-- base set of resources -->
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+            </resource>
+
+            <!-- filter some files -->
+            <resource>
+                <directory>${project.basedir}/src/main/filtered</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        
+        
+        <plugins>
+        <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.5.3</version>
+        <configuration>
+        </configuration>
+      </plugin>
+         <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <version>1.0-alpha-2</version>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>write-project-properties</goal>
+                        </goals>
+                        <configuration>
+                            <outputFile>
+                                ${project.build.outputDirectory}/application.properties
+                            </outputFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>       
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <webResources>
+                        <resource>
+                            <directory>src/main/webapp</directory>
+                            <filtering>true</filtering>
+                            <includes>
+                                <include>**/appengine-web.xml</include>
+                                <include>**/web.xml</include>
+                                <include>**/logging.properties</include>
+                            </includes>
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.google.appengine</groupId>
+                <artifactId>appengine-maven-plugin</artifactId>
+                <version>${gae.version}</version>
+                <configuration>
+                    <disableUpdateCheck>true</disableUpdateCheck>
+                </configuration>
+            </plugin>
+            
+               <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <forkMode>pertest</forkMode>
+                    <argLine>-Xms256m -Xmx512m</argLine>
+                    <testFailureIgnore>false</testFailureIgnore>
+                    <skip>${surefire.default.skip}</skip>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>surefire-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <skip>false</skip>
+                            <excludes>
+                                <exclude>**/*ITest.java</exclude>
+                            </excludes>
+                            <systemPropertyVariables>
+                                <catalina.home>${project.basedir}/target/test</catalina.home>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </execution>
+
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <wtpversion>2.0</wtpversion>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>net.kindleit</groupId>
+                <artifactId>maven-gae-plugin</artifactId>
+                <version>0.9.6</version>
+                <configuration>
+                    <port>${devserver.port}</port>
+                    <monitorPort>8933</monitorPort>
+                    <serverId>appengine.google.com</serverId>
+                    <disableUpdateCheck>true</disableUpdateCheck>
+                    <jvmFlags>
+                        <jvmFlag>-Ddatastore.default_high_rep_job_policy_unapplied_job_pct=20</jvmFlag>
+                        <jvmFlag>-D--enable_all_permissions=true</jvmFlag>
+                    </jvmFlags>
+                </configuration>
+                <dependencies>
+                    <!-- to fix versioning for below gae-runtime dependency -->
+                    <dependency>
+                        <groupId>org.codehaus.plexus</groupId>
+                        <artifactId>plexus-archiver</artifactId>
+                        <version>2.1.2</version>
+                    </dependency>
+
+                    <dependency>
+                        <groupId>net.kindleit</groupId>
+                        <artifactId>gae-runtime</artifactId>
+                        <version>1.8.8</version>
+                        <type>pom</type>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-jdk14</artifactId>
+                        <version>1.7.7</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            
+            <plugin>
+               <groupId>com.google.appengine</groupId>
+               <artifactId>appengine-maven-plugin</artifactId>
+               <version>1.9.48</version>
+               <configuration>
+                   <enableJarClasses>false</enableJarClasses>
+                   <port>8080</port>
+                   <address>0.0.0.0</address>
+                   <disableUpdateCheck>true</disableUpdateCheck>
+                    <jvmFlags>
+                        <jvmFlag>-Ddatastore.default_high_rep_job_policy_unapplied_job_pct=20</jvmFlag>
+                        <jvmFlag>-D--enable_all_permissions=true</jvmFlag>
+                    </jvmFlags>
+               </configuration>
+          </plugin>
+                  
+                  
+        </plugins>
+    </build>
+    
+     <profiles>
+    <profile>
+      <id>test</id>
+      <properties>
+        <json.diagnosticsDisabled>true</json.diagnosticsDisabled>
+        <gae.application.version>test</gae.application.version>
+      </properties>
+    </profile>
+      <profile>
+      <id>prod</id>
+      <properties>
+        <logging.level>INFO</logging.level>
+        <gae.application.version>prod</gae.application.version>
+        <gae.application.id>rupp-timetracking-prod</gae.application.id>
+        
+        <json.diagnosticsDisabled>true</json.diagnosticsDisabled>
+        <json.errormsg>Sorry, something went wrong. Please try again later.</json.errormsg>
+      </properties>
+    </profile>
+     <profile>
+            <id>javadoc</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.8</version>
+                        <configuration>
+                            <additionalparam>-basePath ${swagger.basePath} -baseUrl ${endpoint.apiUrl} -clientId ${endpoint.clientId}</additionalparam>
+                            <author>false</author>
+                            <doclet>com.wadpam.docrest.DocRestDoclet</doclet>
+                            <docletArtifact>
+                                <groupId>com.wadpam</groupId>
+                                <artifactId>docrest-doclet</artifactId>
+                                <version>${docrest-version}</version>
+                            </docletArtifact>
+                            <encoding>UTF-8</encoding>
+                            <javadocExecutable>${javadocExecutable}</javadocExecutable>
+                            <!-- 
+                             <reportOutputDirectory>${project.basedir}/src/main/webapp/static/rest-api/site</reportOutputDirectory>
+                             -->
+                            <sourcepath>src/main/java</sourcepath>
+                            <useStandardDocletOptions>false</useStandardDocletOptions>
+                            <verbose>true</verbose>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>javadoc-docrest</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>javadoc</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    
+                 
+                </plugins>
+            </build>
+        </profile>
+  </profiles>
+  
+  <scm>
+     <url>https://github.com/sophea/tracking_time_gae</url>
+     <developerConnection>scm:git:ssh://git@github.com/sophea/tracking_time_gae.git</developerConnection>
+     <connection>scm:git:https://github.com/sophea/tracking_time_gae.git</connection>
+     <tag>HEAD</tag>
+   </scm>
+</project>

@@ -1,0 +1,45 @@
+<html>
+<head>
+<script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" >
+
+$(function() { 
+
+ if (-1 < location.href.search('thecollection-test') ){
+	  $("#googleSignin").attr("href", "https://accounts.google.com/o/oauth2/auth?state=test&redirect_uri=https%3A%2F%2Fuser-security-mgmt.appspot.com%2Fugly%2Fgoogle-callback.html%3FproviderId=google&response_type=token&client_id=778179583170-jnf6i964d0m02a39aec2ks46a3al56vj.apps.googleusercontent.com&approval_prompt=auto&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email");
+	  $("#facebookSignin").attr("href", "https://www.facebook.com/dialog/oauth?response_type=token&scope=email&client_id=782556931875812&redirect_uri=https%3A%2F%2Fthecollection-test.appspot.com%2Fugly%2Ffacebook-callback.html%3FproviderId=facebook");
+ } else  if (-1 < location.href.search('thecollection-prod') ){
+     $("#googleSignin").attr("href", "https://accounts.google.com/o/oauth2/auth?state=test&redirect_uri=https%3A%2F%2Fuser-security-mgmt.appspot.com%2Fugly%2Fgoogle-callback.html%3FproviderId=google&response_type=token&client_id=778179583170-jnf6i964d0m02a39aec2ks46a3al56vj.apps.googleusercontent.com&approval_prompt=auto&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email");
+     $("#facebookSignin").attr("href", "https://www.facebook.com/dialog/oauth?response_type=token&scope=email&client_id=1774812029414314&redirect_uri=https%3A%2F%2Fthecollection-prod.appspot.com%2Fugly%2Ffacebook-callback.html%3FproviderId=facebook");
+}  
+
+});
+</script>
+
+</head>
+<body>
+Hello
+<a id="facebookSignin" href="https://www.facebook.com/dialog/oauth?response_type=token&scope=email&client_id=369547099886&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fugly%2Ffacebook-callback.html%3FproviderId=facebook">Sign in through your Facebook account</a>
+<br/>
+<a id="googleSignin" href="https://accounts.google.com/o/oauth2/auth?state=test&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fugly%2Fgoogle-callback.html%3FproviderId=google&response_type=token&client_id=778179583170-jnf6i964d0m02a39aec2ks46a3al56vj.apps.googleusercontent.com&approval_prompt=auto&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email">Sign in through your Google account</a>
+<br/>
+
+<a id="adminOperation" href="admin.html">Admin Page (1)</a>
+<br/>
+
+<a id="adminOperation" href="Authorization_Client_Credential.html">Authorization Client Credential   (2)</a>
+<br/> 
+
+<a id="credentialsOperation" href="Resource_Password_Owner.html">Resource Password Owner (3)</a>
+
+<br/>
+<a id="logout" href="/api/oauth2/v1/user/logout">Logout</a>
+<br/>
+<a href="/api/oauth2/token/refresh">refresh token</a>
+
+
+
+</body>
+</html>
+
+
