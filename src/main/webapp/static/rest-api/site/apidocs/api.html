@@ -1,0 +1,510 @@
+<html>
+    <head>
+        <title>REST API documentation</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.12/clipboard.min.js"></script>
+        <link rel="stylesheet" href="api.css" type="text/css" />
+        <script src="api-tool-populator.js" type="text/javascript"></script>
+        <script src="api-tool.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <div style=" max-width: 90%;margin-left: auto;margin-right: auto;align:center">
+        <!-- Table of Contents ---------------------------------------------------->
+        <h1>Rest API</h1>
+        <p>
+                          Date:2017-01-20 18:04:28
+        </p>
+
+                     <p>
+                <pre>
+This backend is about for handling endpoints REST-APIs and response as Json format. 
+JSON format and response back to client-apps (iOS, Android,Mobile-Web, 3rd party and more...)
+
+Each REST-API Request must start with /api. 
+
+=======Authentication==========
+There are 2 types of authentication.
+ 
+1 oAuth2 Client Credentials flow (Minimum that every App (web/iOS/Android) must use & Third Party Systems that integrate into backend).
+
+ex : clientId and secret is sent as Basic Auth headers.
+ 
+curl --user  {clientId}:{clientSecret}   -k -d "grant_type=client_credentials" -H  "Content-Type: application/x-www-form-urlencoded" http://localhost:8080/api/oauth2/token
+  
+response json :
+{
+"token_type" : "bearer",
+"access_token":"1390812012543_m8vo1iuirp60s7lusdcysamck8dflgylyc0j5ye945l1j3tdkeps7nswxfk1zw80otpkn6f6gwutmvubzo0kjwmfzvcg3ogmfd5ngbcmf00c05mku0_5770237022568448",
+"expires_in":1390816226099,
+"userId":32433
+}
+ 
+error json :  {"httpCode":401,"errorCode":0,"message":" invalid credentials!"}
+
+
+Success response will return json back, you can access the APIs.
+
+You need to pass access_token value either in the request param ("access_token") or from cookie to access BACKEND API.
+
+
+ex:Request param : http://localhost:8080/api/oauth2/v1/user/me?access_token={o1iuirp60s7lusdcysamck8dflgy...}
+
+ex : Cookie mode : curl --cookie "access_token=cookieValue" -H  "Content-Type: application/x-www-form-urlencoded" http://localhost:8080/api/oauth2/v1/user/me 
+
+
+2 oAuth2 Resource Owner Password flow (Username, password)
+
+
+====================================================================
+
+Backend most REST-APIs supported request Content-Type : <b>"application/x-www-form-urlencoded"  , "application/x-www-form-urlencoded charset=utf-8" </b>
+
+App client should use this Content-Type when making a call REST-API Backend.
+
+However some REST-APIs are supported request Content-Type : application/json  as well , please ses REST-DOC API documentation below:  
+
+ 
+
+Date format both request and response is accepted with this format : yyyy-MM-dd'T'HH:mm:ssZ ex : "2015-11-09T11:14:05+0700"
+
+<br/>
+Date request can support
+1 - yyyy-MM-dd               ex : 2015-09-20
+2 - yyyy-MM-dd'T'HH:mm:ssZ   ex : "2015-11-09T11:14:05+0700"
+3 - yyyy-MM-dd'T'HH:mm:ss'Z' ex : "2015-11-09T11:14:05Z"
+===================================================================
+Monitor REST-API for Server:  http://localhost:8080/monitor
+
+</pre>
+<!-- server URLs -->
+<script type="text/javascript">
+    var serverUrls =["https://rupp-timetracking-test.appspot.com"];
+    var isEnableUserSecurity = true;
+</script>
+
+            </p>
+                 <div class = "authorization-dialog"></div>   
+        <ul class="restAPIs">
+                                                              <li class="main">
+                                  
+                                             <a href ="#profile" data-goto = "false" class="link api-slide-toggle_one_level" id = "profile">  /profile <!--/profile--></a>
+                                        <ul class="restAPIs"> 
+                                                    <li class="sublink" >
+                               
+                                 
+
+                                
+                                <div class = "row"> 
+                                  	
+                                  	<div class = "col-md-5 col-sm-5 col-xs-5">
+                             			<span class="GET">GET</span>
+	                                  	<a class="link api-slide-toggle">
+	                                    	                                        	                                            	                                                	                                                      /profile/v1/me  <!--/profile/v1/me-->
+	                                            	                                    	                                    </a>
+	                                    
+                                  	</div>
+                                  	
+                                  	
+                                  	<div title = "get my profile : app-side" class = "col-md-7 col-sm-7 col-xs-7 " style="padding-right; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; ">
+                                  		                                  			                                        		<span class="trait">ROLE_USER_PWD</span>
+                                        	                                    	                                  		<span>get my profile : app-side</span>  
+                                  	</div>
+                                  	
+                                  </div>
+                                  
+                                
+                                	
+                                	
+                                	
+                                <div class = "well api-path api-path-get">
+                                                                        <p>
+                                        <b>Description</b>
+                                        :get current user profile
+                                    </p>
+                                                                                                            <h3 class = "description-toggle">Request parameters</h3>
+                                    <table id="restAPI_1">
+                                        <thead>
+                                            <th class="column1">Param Type</th>
+                                            <th class="column2">Name</th>
+                                            <th class="column3">Type</th>
+                                            <th class="column4">Required</th>
+                                            <th class="column5">Default Value</th>
+                                            <th class="columnAuto">Description</th>
+                                        </thead>
+                                        <tbody>
+                                                                                                                                                                                
+                                                                                                                                                                                                                                <tr>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                </tr>
+                                                                                    </tbody>
+                                    </table>
+                                    <h3 class = "description-toggle">Response Codes</h3>
+                                    <table>
+                                        <thead>
+                                            <td class="column1">HTTP Response Code</td>
+                                            <td class="columnAuto">Description</td>
+                                        </thead>
+                                        <tbody>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <tr>
+                                                                        <td class='responseCode_200'>200</td>
+                                                                        <td colspan="2">
+                                                                                                                                                                                                                                                Success
+                                                                                                                                                                                                                                    </td>
+                                                                    </tr>
+                                                                                                                                                                                                                                                                            <tr>
+                                                                        <td class='responseCode_401'>401</td>
+                                                                        <td colspan="2">
+                                                                                                                                                                                                                                                You are not authenticated
+                                                                                                                                                                                                                                    </td>
+                                                                    </tr>
+                                                                                                                                                                                                                                                                            <tr>
+                                                                        <td class='responseCode_404'>404</td>
+                                                                        <td colspan="2">
+                                                                                                                                                                                                                                                Object not found
+                                                                                                                                                                                                                                    </td>
+                                                                    </tr>
+                                                                                                                                                                                                                                                                            <tr>
+                                                                        <td class='responseCode_500'>500</td>
+                                                                        <td colspan="2">
+                                                                                                                                                                                                                                                The server encountered an error
+                                                                                                                                                                                                                                    </td>
+                                                                    </tr>
+                                                                                                                                                                                                                                                                                                                                                                                                                        </tbody>
+                                    </table>
+                    
+                                                                            <p>
+                                            <b>Response Type</b>
+                                            : 
+                                                                                            <a href="api.html#com.rupp.timetrack.domain.UserProfile" class="link">com.rupp.timetrack.domain.UserProfile</a>
+                                                                                    </p>
+                                        
+                                        <p>
+                                            <b>Response data object</b>
+                                            : 
+                                                                                            <a href="api.html#com.rupp.timetrack.domain.UserProfile" class="link">com.rupp.timetrack.domain.UserProfile</a>
+                                                                                    </p>
+                                        
+                                        <h3 class = "description-toggle">Response Example</h3>
+                                        <p class="code">
+                                            <pre>{<div>&nbsp;&nbsp;&nbsp;<b>"address"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"birthOfYear"</b>&nbsp;:&nbsp;Date,</div><div>&nbsp;&nbsp;&nbsp;<b>"createdBy"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"createdDate"</b>&nbsp;:&nbsp;Date,</div><div>&nbsp;&nbsp;&nbsp;<b>"email"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"externalId"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"firstName"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"gender"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"id"</b>&nbsp;:&nbsp;Long,</div><div>&nbsp;&nbsp;&nbsp;<b>"lastName"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"photoUrl"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"state"</b>&nbsp;:&nbsp;Long,</div><div>&nbsp;&nbsp;&nbsp;<b>"updatedBy"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"updatedDate"</b>&nbsp;:&nbsp;Date,</div><div>&nbsp;&nbsp;&nbsp;<b>"userId"</b>&nbsp;:&nbsp;Long,</div><div>&nbsp;&nbsp;&nbsp;<b>"version"</b>&nbsp;:&nbsp;Long,</div>}</pre> <!--<pre>{<div>&nbsp;&nbsp;&nbsp;<b>"address"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"birthOfYear"</b>&nbsp;:&nbsp;Date,</div><div>&nbsp;&nbsp;&nbsp;<b>"createdBy"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"createdDate"</b>&nbsp;:&nbsp;Date,</div><div>&nbsp;&nbsp;&nbsp;<b>"email"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"externalId"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"firstName"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"gender"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"id"</b>&nbsp;:&nbsp;Long,</div><div>&nbsp;&nbsp;&nbsp;<b>"lastName"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"photoUrl"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"state"</b>&nbsp;:&nbsp;Long,</div><div>&nbsp;&nbsp;&nbsp;<b>"updatedBy"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"updatedDate"</b>&nbsp;:&nbsp;Date,</div><div>&nbsp;&nbsp;&nbsp;<b>"userId"</b>&nbsp;:&nbsp;Long,</div><div>&nbsp;&nbsp;&nbsp;<b>"version"</b>&nbsp;:&nbsp;Long,</div>}</pre>-->    
+                                        </p>
+                                        
+                                                                         <!-- add TEST API tool here-->
+                                    <a class="api-toggle btn btn-info btn-xs" style="background-color:#0080FF" role="button" id = "1" data-request-method="GET" data-path="/profile/v1/me" data-table-index = "restAPI_1" data-content-type = "">TEST API</a>
+                                   
+                                </div>       
+                            </li>
+                                                    <li class="sublink" >
+                               
+                                 
+
+                                
+                                <div class = "row"> 
+                                  	
+                                  	<div class = "col-md-5 col-sm-5 col-xs-5">
+                             			<span class="POST">POST</span>
+	                                  	<a class="link api-slide-toggle">
+	                                    	                                        	                                            	                                                	                                                      /profile/v1/me  <!--/profile/v1/me-->
+	                                            	                                    	                                    </a>
+	                                    
+                                  	</div>
+                                  	
+                                  	
+                                  	<div title = "update my profile : app-side" class = "col-md-7 col-sm-7 col-xs-7 " style="padding-right; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; ">
+                                  		                                  			                                        		<span class="trait">ROLE_USER_PWD</span>
+                                        	                                    	                                  		<span>update my profile : app-side</span>  
+                                  	</div>
+                                  	
+                                  </div>
+                                  
+                                
+                                	
+                                	
+                                	
+                                <div class = "well api-path api-path-post">
+                                                                        <p>
+                                        <b>Description</b>
+                                        :update current user profile
+                                    </p>
+                                                                                                            <p>
+                                     <b>Content-Type</b>: application/x-www-form-urlencoded charset=utf-8
+                                    </p>
+                                                                        <h3 class = "description-toggle">Request parameters</h3>
+                                    <table id="restAPI_2">
+                                        <thead>
+                                            <th class="column1">Param Type</th>
+                                            <th class="column2">Name</th>
+                                            <th class="column3">Type</th>
+                                            <th class="column4">Required</th>
+                                            <th class="column5">Default Value</th>
+                                            <th class="columnAuto">Description</th>
+                                        </thead>
+                                        <tbody>
+                                                                                                                                                                                
+                                                                                                                                                                                    <tr>
+                                                    <td>body (properties separately)</td>
+                                                    <td>userProfile</td>
+                                                    <td class = "sample-resource get-model-attribute" data-content-type = "application/x-www-form-urlencoded charset=utf-8">{<div>&nbsp;&nbsp;&nbsp;<b>"address"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"birthOfYear"</b>&nbsp;:&nbsp;Date,</div><div>&nbsp;&nbsp;&nbsp;<b>"createdBy"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"createdDate"</b>&nbsp;:&nbsp;Date,</div><div>&nbsp;&nbsp;&nbsp;<b>"email"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"externalId"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"firstName"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"gender"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"id"</b>&nbsp;:&nbsp;Long,</div><div>&nbsp;&nbsp;&nbsp;<b>"lastName"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"photoUrl"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"state"</b>&nbsp;:&nbsp;Long,</div><div>&nbsp;&nbsp;&nbsp;<b>"updatedBy"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"updatedDate"</b>&nbsp;:&nbsp;Date,</div><div>&nbsp;&nbsp;&nbsp;<b>"userId"</b>&nbsp;:&nbsp;Long,</div><div>&nbsp;&nbsp;&nbsp;<b>"version"</b>&nbsp;:&nbsp;Long,</div>}</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>: fields to send
+          <pre>
+        (mandatory)
+                 firstName: 
+                 lastName :
+              (optional)
+                 gender : F | M
+                 address :
+                 photoUrl :
+                </pre></td>
+                                                </tr>
+                                                                                                                                </tbody>
+                                    </table>
+                                    <h3 class = "description-toggle">Response Codes</h3>
+                                    <table>
+                                        <thead>
+                                            <td class="column1">HTTP Response Code</td>
+                                            <td class="columnAuto">Description</td>
+                                        </thead>
+                                        <tbody>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <tr>
+                                                                        <td class='responseCode_200'>200</td>
+                                                                        <td colspan="2">
+                                                                                                                                                                                                                                                Success
+                                                                                                                                                                                                                                    </td>
+                                                                    </tr>
+                                                                                                                                                                                                                                                                            <tr>
+                                                                        <td class='responseCode_401'>401</td>
+                                                                        <td colspan="2">
+                                                                                                                                                                                                                                                You are not authenticated
+                                                                                                                                                                                                                                    </td>
+                                                                    </tr>
+                                                                                                                                                                                                                                                                            <tr>
+                                                                        <td class='responseCode_404'>404</td>
+                                                                        <td colspan="2">
+                                                                                                                                                                                                                                                Object not found
+                                                                                                                                                                                                                                    </td>
+                                                                    </tr>
+                                                                                                                                                                                                                                                                            <tr>
+                                                                        <td class='responseCode_500'>500</td>
+                                                                        <td colspan="2">
+                                                                                                                                                                                                                                                The server encountered an error
+                                                                                                                                                                                                                                    </td>
+                                                                    </tr>
+                                                                                                                                                                                                                                                                                                                                                                                                                        </tbody>
+                                    </table>
+                    
+                                                                            <p>
+                                            <b>Response Type</b>
+                                            : 
+                                                                                            <a href="api.html#com.rupp.timetrack.domain.UserProfile" class="link">com.rupp.timetrack.domain.UserProfile</a>
+                                                                                    </p>
+                                        
+                                        <p>
+                                            <b>Response data object</b>
+                                            : 
+                                                                                            <a href="api.html#com.rupp.timetrack.domain.UserProfile" class="link">com.rupp.timetrack.domain.UserProfile</a>
+                                                                                    </p>
+                                        
+                                        <h3 class = "description-toggle">Response Example</h3>
+                                        <p class="code">
+                                            <pre>{<div>&nbsp;&nbsp;&nbsp;<b>"address"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"birthOfYear"</b>&nbsp;:&nbsp;Date,</div><div>&nbsp;&nbsp;&nbsp;<b>"createdBy"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"createdDate"</b>&nbsp;:&nbsp;Date,</div><div>&nbsp;&nbsp;&nbsp;<b>"email"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"externalId"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"firstName"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"gender"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"id"</b>&nbsp;:&nbsp;Long,</div><div>&nbsp;&nbsp;&nbsp;<b>"lastName"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"photoUrl"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"state"</b>&nbsp;:&nbsp;Long,</div><div>&nbsp;&nbsp;&nbsp;<b>"updatedBy"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"updatedDate"</b>&nbsp;:&nbsp;Date,</div><div>&nbsp;&nbsp;&nbsp;<b>"userId"</b>&nbsp;:&nbsp;Long,</div><div>&nbsp;&nbsp;&nbsp;<b>"version"</b>&nbsp;:&nbsp;Long,</div>}</pre> <!--<pre>{<div>&nbsp;&nbsp;&nbsp;<b>"address"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"birthOfYear"</b>&nbsp;:&nbsp;Date,</div><div>&nbsp;&nbsp;&nbsp;<b>"createdBy"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"createdDate"</b>&nbsp;:&nbsp;Date,</div><div>&nbsp;&nbsp;&nbsp;<b>"email"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"externalId"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"firstName"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"gender"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"id"</b>&nbsp;:&nbsp;Long,</div><div>&nbsp;&nbsp;&nbsp;<b>"lastName"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"photoUrl"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"state"</b>&nbsp;:&nbsp;Long,</div><div>&nbsp;&nbsp;&nbsp;<b>"updatedBy"</b>&nbsp;:&nbsp;String,</div><div>&nbsp;&nbsp;&nbsp;<b>"updatedDate"</b>&nbsp;:&nbsp;Date,</div><div>&nbsp;&nbsp;&nbsp;<b>"userId"</b>&nbsp;:&nbsp;Long,</div><div>&nbsp;&nbsp;&nbsp;<b>"version"</b>&nbsp;:&nbsp;Long,</div>}</pre>-->    
+                                        </p>
+                                        
+                                                                         <!-- add TEST API tool here-->
+                                    <a class="api-toggle btn btn-info btn-xs" style="background-color:#0080FF" role="button" id = "2" data-request-method="POST" data-path="/profile/v1/me" data-table-index = "restAPI_2" data-content-type = "application/x-www-form-urlencoded charset=utf-8">TEST API</a>
+                                   
+                                </div>       
+                            </li>
+                                            </ul>
+                            
+                </li>
+                        <li>JSON Objects
+                <ul>
+                                            <li class="jsonObject">
+                            <a href="api.html#com.rupp.timetrack.domain.UserProfile" class="link">com.rupp.timetrack.domain.UserProfile</a>
+                        </li>
+                                    </ul>
+            </li>
+        </ul>
+        
+        <h1 class="resourceHeader">JSON Objects</h1>
+                    <!-- JSON object: com.rupp.timetrack.domain.UserProfile ---------------------------------------------------->        
+            <a name="com.rupp.timetrack.domain.UserProfile" ></a>
+            <h2 class="methodHeader">com.rupp.timetrack.domain.UserProfile</h2>
+            <table>
+                <thead>
+                    <td class="column1">Name</th>
+                    <td class="column2">Type</th>
+                    <td class="column3">Description</th>
+                </thead>
+                <tbody>
+                                                                
+                                                                                
+                                <tr>
+                                    <td>
+                                       createdBy
+                                    </td>
+                                    <td>java.lang.String</td>
+                                    <td>
+                                        created by
+                                    </td>
+                                </tr>
+                        
+                                                                    
+                                                                                
+                                <tr>
+                                    <td>
+                                       createdDate
+                                    </td>
+                                    <td>java.util.Date</td>
+                                    <td>
+                                        created date
+                                    </td>
+                                </tr>
+                        
+                                                                    
+                                                                                
+                                <tr>
+                                    <td>
+                                       id
+                                    </td>
+                                    <td>java.lang.Long</td>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+                        
+                                                                    
+                                                                                
+                                <tr>
+                                    <td>
+                                       state
+                                    </td>
+                                    <td>java.lang.Long</td>
+                                    <td>
+                                        state
+                                    </td>
+                                </tr>
+                        
+                                                                    
+                                                                                
+                                <tr>
+                                    <td>
+                                       updatedBy
+                                    </td>
+                                    <td>java.lang.String</td>
+                                    <td>
+                                        updated by
+                                    </td>
+                                </tr>
+                        
+                                                                    
+                                                                                
+                                <tr>
+                                    <td>
+                                       updatedDate
+                                    </td>
+                                    <td>java.util.Date</td>
+                                    <td>
+                                        updated date
+                                    </td>
+                                </tr>
+                        
+                                                                    
+                                                                                
+                                <tr>
+                                    <td>
+                                       version
+                                    </td>
+                                    <td>java.lang.Long</td>
+                                    <td>
+                                        version number changes
+                                    </td>
+                                </tr>
+                        
+                                                                                                                                                                                          <tr>
+                                        <td>userId </td>
+                                        
+                                        <td>java.lang.Long</td>
+                                        <td>
+                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </td>
+                                    </tr>
+                                                                                                                                                                                                                                                                                <tr>
+                                        <td>firstName </td>
+                                        
+                                        <td>java.lang.String</td>
+                                        <td>
+                                                                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </td>
+                                    </tr>
+                                                                                                                                                                                                                                                                                <tr>
+                                        <td>lastName </td>
+                                        
+                                        <td>java.lang.String</td>
+                                        <td>
+                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </td>
+                                    </tr>
+                                                                                                                                                                                                                                                                                <tr>
+                                        <td>email </td>
+                                        
+                                        <td>java.lang.String</td>
+                                        <td>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </td>
+                                    </tr>
+                                                                                                                                                                                                                                                                                <tr>
+                                        <td>gender </td>
+                                        
+                                        <td>java.lang.String</td>
+                                        <td>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </td>
+                                    </tr>
+                                                                                                                                                                                                                                                                                <tr>
+                                        <td>birthOfYear </td>
+                                        
+                                        <td>java.util.Date</td>
+                                        <td>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                                                                                                                                        </td>
+                                    </tr>
+                                                                                                                                                                                                                                                                                <tr>
+                                        <td>address </td>
+                                        
+                                        <td>java.lang.String</td>
+                                        <td>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                            </td>
+                                    </tr>
+                                                                                                                                                                                                                                                                                <tr>
+                                        <td>photoUrl </td>
+                                        
+                                        <td>java.lang.String</td>
+                                        <td>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                </td>
+                                    </tr>
+                                                                                                                                                                                                                                                                                <tr>
+                                        <td>externalId </td>
+                                        
+                                        <td>java.lang.String</td>
+                                        <td>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            reference id facebook google
+                                                                                                                                    </td>
+                                    </tr>
+                                                                                                                                                                      </tbody>
+            </table>
+                 <!-- Extra Json Objects  -->
+                          </div>
+    </body>
+</html>

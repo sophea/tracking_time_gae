@@ -1,0 +1,45 @@
+
+After login successfully : to know current user role - call api below
+
+http://localhost:8080/api/oauth2/v1/user/me
+
+
+json sample
+=================
+{
+id: 5066549580791808,
+roles:  [
+"ROLE_USER",
+"ROLE_USER_PWD"
+],
+expirePolicy: 1,
+expireInSeconds: 14400,
+state: 1,
+updatedDate: "2017-01-20T10:05:17+0000"
+}
+========================
+ 
+ROLE_USER_PWD  : it is teacher role
+ROLE_ADMIN : it is director role
+
+
+
+Sample dummy user for testing in localhost environment
+
+Admin user
+
+admin/admin
+
+
+Normal User
+
+other accounts with the same password : Aa12345678
+for(i=1 to 19) {
+ test+i@gmail.com
+} 
+test+1@gmail.com ..... test+20@gmail.com
+
+
+// after login : to get my profile :
+
+GET http://localhost:8080/api/profile/v1/me

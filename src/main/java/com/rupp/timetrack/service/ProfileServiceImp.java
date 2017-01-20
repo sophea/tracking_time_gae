@@ -10,12 +10,12 @@ import com.rupp.timetrack.domain.UserProfile;
 import com.sma.security.service.UserSecurityService;
 
 @Service("profileService")
-public class ProfileServiceImpl  extends BaseService<UserProfileDao, UserProfile> {
+public class ProfileServiceImp  extends BaseService<UserProfileDao, UserProfile> {
     
     @Autowired
     private UserSecurityService userSecurityService;
     
-    public ProfileServiceImpl() {
+    public ProfileServiceImp() {
         super(UserProfile.class);
     }
     

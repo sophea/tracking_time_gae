@@ -2,6 +2,7 @@ package com.rupp.timetrack.config;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -31,12 +32,15 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.google.appengine.api.utils.SystemProperty;
+import com.rupp.timetrack.service.TrackingTimeServiceImp;
 import com.rupp.timetrack.service.UserAccountListener;
 import com.sma.common.gaesupport.web.BlobController;
 import com.sma.common.web.RestJsonExceptionResolver;
 import com.sma.common.web.SkipNullObjectMapper;
 import com.sma.security.config.UserServiceGaeConfig;
+import com.sma.security.interceptor.HttpAction;
 import com.sma.security.interceptor.SecurityModule;
+import com.sma.security.interceptor.UserRole;
 import com.sma.security.service.ClientCredentials;
 import com.sma.security.service.ErrorValidation;
 import com.sma.security.service.UserPasswordValidator;
@@ -53,7 +57,7 @@ import com.sma.security.web.UserAccountController;
         "com.rupp.timetrack.dao", })
 public class MvcConfig extends WebMvcConfigurerAdapter {
 
-    public static final String ROLE_BRAND_ADMIN = "ROLE_BRAND_ADMIN";
+    public static final String ROLE_STAFF = "ROLE_STAFF";
     public static final String ROOT_ACCOUNT_EMAIL = "root@rupp.com";
     private static final String ROOT_ACCOUNT_PWD = "tVeQxsuazfAhGNgrd1PWua29f";
 
@@ -205,9 +209,14 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
             }
         });
 
+        securityModule.setDefaultAuthorization(HttpAction.ALL, "/api", UserRole.ROLE_ADMIN, UserRole.ROLE_BACKOFFICE_ADMIN);
+        
+        final HashSet<String> extraRoles = new HashSet<>();
+        extraRoles.add(ROLE_STAFF);
+        
         // admin account will have ROLEs : ROLE_ADMIN , ROLE_BACKOFFICE_ADMIN,ROLE_USER
         userSecurityService.createSuperRootAdminAccount(ROOT_ACCOUNT_EMAIL, ROOT_ACCOUNT_PWD,
-                ExpirePolicy.AFTER_LOGIN, 4L * 3600);
+                ExpirePolicy.AFTER_LOGIN, 4L * 3600, extraRoles);
 
         // create client credentials 4hour
         List<ClientCredentials> clientCredentailsList = new LinkedList<>();
@@ -230,6 +239,8 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
          **/
         userSecurityService.setActivatedNewAccountEnable(false);
 
+      //reset password life timer 1day
+        userSecurityService.setResetPwdExpirationTimerInMillis(TimeUnit.DAYS.toMillis(1L));
         return securityModule;
     }
 
@@ -237,4 +248,10 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     public UserAccountListener userAccountSignupListenerBean() {
         return new UserAccountListener();
     }
+    
+    @Bean(initMethod = "init")
+    public TrackingTimeServiceImp trackingTimeServiceImp() {
+        return new TrackingTimeServiceImp();
+    }
+    
 }

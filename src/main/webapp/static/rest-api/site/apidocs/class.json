@@ -1,0 +1,218 @@
+
+
+
+
+{
+"swagger": "2.0",
+"info": {
+    "title": "Rest API",
+    "version": "0.0.1",
+        "description":"<pre>\nThis backend is about for handling endpoints REST-APIs and response as Json format. \nJSON format and response back to client-apps (iOS, Android,Mobile-Web, 3rd party and more...)\n\nEach REST-API Request must start with \/api. \n\n=======Authentication==========\nThere are 2 types of authentication.\n \n1 oAuth2 Client Credentials flow (Minimum that every App (web\/iOS\/Android) must use & Third Party Systems that integrate into backend).\n\nex : clientId and secret is sent as Basic Auth headers.\n \ncurl --user  {clientId}:{clientSecret}   -k -d \"grant_type=client_credentials\" -H  \"Content-Type: application\/x-www-form-urlencoded\" http:\/\/localhost:8080\/api\/oauth2\/token\n  \nresponse json :\n{\n\"token_type\" : \"bearer\",\n\"access_token\":\"1390812012543_m8vo1iuirp60s7lusdcysamck8dflgylyc0j5ye945l1j3tdkeps7nswxfk1zw80otpkn6f6gwutmvubzo0kjwmfzvcg3ogmfd5ngbcmf00c05mku0_5770237022568448\",\n\"expires_in\":1390816226099,\n\"userId\":32433\n}\n \nerror json :  {\"httpCode\":401,\"errorCode\":0,\"message\":\" invalid credentials!\"}\n\n\nSuccess response will return json back, you can access the APIs.\n\nYou need to pass access_token value either in the request param (\"access_token\") or from cookie to access BACKEND API.\n\n\nex:Request param : http:\/\/localhost:8080\/api\/oauth2\/v1\/user\/me?access_token={o1iuirp60s7lusdcysamck8dflgy...}\n\nex : Cookie mode : curl --cookie \"access_token=cookieValue\" -H  \"Content-Type: application\/x-www-form-urlencoded\" http:\/\/localhost:8080\/api\/oauth2\/v1\/user\/me \n\n\n2 oAuth2 Resource Owner Password flow (Username, password)\n\n\n====================================================================\n\nBackend most REST-APIs supported request Content-Type : <b>\"application\/x-www-form-urlencoded\"  , \"application\/x-www-form-urlencoded charset=utf-8\" <\/b>\n\nApp client should use this Content-Type when making a call REST-API Backend.\n\nHowever some REST-APIs are supported request Content-Type : application\/json  as well , please ses REST-DOC API documentation below:  \n\n \n\nDate format both request and response is accepted with this format : yyyy-MM-dd'T'HH:mm:ssZ ex : \"2015-11-09T11:14:05+0700\"\n\n<br\/>\nDate request can support\n1 - yyyy-MM-dd               ex : 2015-09-20\n2 - yyyy-MM-dd'T'HH:mm:ssZ   ex : \"2015-11-09T11:14:05+0700\"\n3 - yyyy-MM-dd'T'HH:mm:ss'Z' ex : \"2015-11-09T11:14:05Z\"\n===================================================================\nMonitor REST-API for Server:  http:\/\/localhost:8080\/monitor\n\n<\/pre>",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact":{
+        "name" : "API Support",
+                "url": "http://docrest.dminc-gtc.com/"
+        
+    },
+    "license" : {
+        "name": "MIT",
+        "url" : "https://opensource.org/licenses/MIT"
+    }
+},
+"host": "rupp-timetracking-test.appspot.com",
+"basePath": "/api",
+"schemes": [ "https" ],
+"consumes": [ "application/json" ],
+"produces": [ "application/json" ],
+"paths": {
+                                                                           
+                                                                                                        "/profile/v1/me" : {
+                                        "get" : {
+                                                                                                                        "description": "get current user profile",
+                                        "operationId": "getMyProfile1",
+                                                                                                                          "summary" : "[ROLE_USER_PWD] get my profile : app-side",
+                                                                                  
+                                        "parameters":[
+                                                                                                                        
+                                                                                
+                                                                                 
+                                         
+                                        
+                                        
+                                        ],
+                                        
+                                        "responses" : {
+                                        
+                                        "default": {
+                                            "description": "Unexpected error"
+                                        }
+                                        
+                                                                                                                                                                        
+                                                                                        
+                                            
+                                                                                                                                
+                                                                                        
+                                            
+                                                                                                                                
+                                                                                        
+                                            
+                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                                                                ,
+                                                                "200" : {
+                                                                                                                                                                        "schema": {
+                
+                                    "$ref": "#/definitions/com.rupp.timetrack.domain.UserProfile"
+                                
+            },
+                
+
+                                                                                                                                                                                                                                                                                            "description" : "Success"
+                                                                                                                                                                                                                 
+                                                                }
+                                                        
+                                                                                                                                                                                                                                                                                                                            
+                                                                ,
+                                                                "401" : {
+                                                                                                                                                                                                                                                                                            "description" : "You are not authenticated"
+                                                                                                                                                                                                                 
+                                                                }
+                                                        
+                                                                                                                                                                                                                                                                                                                            
+                                                                ,
+                                                                "404" : {
+                                                                                                                                                                                                                                                                                            "description" : "Object not found"
+                                                                                                                                                                                                                 
+                                                                }
+                                                        
+                                                                                                                                                                                                                                                                                                                            
+                                                                ,
+                                                                "500" : {
+                                                                                                                                                                                                                                                                                           "description" : "The server encountered an error"
+                                                                                                                                                                                                                 
+                                                                }
+                                                        
+                                                                                                                                                                                                                                                                                                                                                                                
+                                            
+                                                                                
+                                        }
+                                        
+                                    }
+                                                                  
+                            
+                                                                  
+                                                               
+                                                                                                                                                                                        
+                                                                  
+                            
+                                 , 
+                                    "post" : {
+                                                                                "description": "update current user profile",
+                                        "operationId": "updateMyProfile2",
+                                       	                                          "summary" : "[ROLE_USER_PWD] update my profile : app-side",
+                                                                            
+                                        "parameters":[
+                                                                                                                                                                
+                                        
+                                                                                
+                                        
+                                        
+                                        ],
+                                        
+                                        "responses" : {
+                                        
+                                        "default": {
+                                            "description": "Unexpected error"
+                                        }
+                                        
+                                                                                                                                                                        
+                                                                                        
+                                            
+                                                                                                                                
+                                                                                        
+                                            
+                                                                                                                                
+                                                                                        
+                                            
+                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                                                                ,
+                                                                "200" : {
+                                                                                                                                                                        "schema": {
+                
+                                    "$ref": "#/definitions/com.rupp.timetrack.domain.UserProfile"
+                                
+            },
+                
+
+                                                                                                                                                                                                                                                                                            "description" : "Success"
+                                                                                                                                                                                                                 
+                                                                }
+                                                        
+                                                                                                                                                                                                                                                                                                                            
+                                                                ,
+                                                                "401" : {
+                                                                                                                                                                                                                                                                                            "description" : "You are not authenticated"
+                                                                                                                                                                                                                 
+                                                                }
+                                                        
+                                                                                                                                                                                                                                                                                                                            
+                                                                ,
+                                                                "404" : {
+                                                                                                                                                                                                                                                                                            "description" : "Object not found"
+                                                                                                                                                                                                                 
+                                                                }
+                                                        
+                                                                                                                                                                                                                                                                                                                            
+                                                                ,
+                                                                "500" : {
+                                                                                                                                                                                                                                                                                           "description" : "The server encountered an error"
+                                                                                                                                                                                                                 
+                                                                }
+                                                        
+                                                                                                                                                                                                                                                                                                                                                                                
+                                            
+                                                                                
+                                        }
+                                        
+                                    } 
+                                    
+                                                                  
+                                                               
+                                                                                                                            }
+},
+"definitions":{
+            "com.rupp.timetrack.domain.UserProfile":{
+        "type": "object",
+        "properties":{
+                                                        "userId":{"type" : "integer", "format" : "int64"}
+    
+                
+                                                                                    ,            "firstName":{"type" : "string"}
+    
+                
+                                                                                    ,            "lastName":{"type" : "string"}
+    
+                
+                                                                                    ,            "email":{"type" : "string"}
+    
+                
+                                                                                    ,            "gender":{"type" : "string"}
+    
+                
+                                                                                    ,            "birthOfYear":{"type":"string", "format" : "date"}
+    
+                
+                                                                                    ,            "address":{"type" : "string"}
+    
+                
+                                                                                    ,            "photoUrl":{"type" : "string"}
+    
+                
+                                                                                    ,            "externalId":{"type" : "string"}
+    
+                
+                                                                }
+        }
+}
+}

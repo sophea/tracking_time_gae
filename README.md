@@ -14,6 +14,8 @@ https://docs.google.com/document/d/1zp6EuTHZwYkK3gaJ_aVvdO-p37RMXBZ0C7IFov07yqk/
 - 5 : sample APIs : monitor api :
    - GET api : http://localhost:8080/monitor
    - test ugly forms : http://localhost:8080/ugly  (checked admin)
+     - log wiht credentials first : http://localhost:8080/ugly/Authorization_Client_Credential.html
+     - log in with resource owner account 
  
 - 6 : doc-rest page :
   - user-security-api :  http://localhost:8080/rest-api/security/api.html

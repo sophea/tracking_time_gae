@@ -25,16 +25,6 @@ public class UserProfile extends AbstractLongDomainEntity {
     /**reference id facebook google */
     private String externalId;
     
-    private Long totalMyStamps;
-    private Long totalMyOffers; 
-    
-    /**
-     * flag true the invite to friends will visible
-     * 
-     * Apple reviewing this flag is true
-     * when it is done we can set it to false
-     * */
-    private boolean visibleShareToFriend = true;
     /**
      * @return the userId
      */
@@ -149,46 +139,5 @@ public class UserProfile extends AbstractLongDomainEntity {
         this.externalId = externalId;
     }
 
-    /**
-     * @return the totalMyStamps
-     */
-    public Long getTotalMyStamps() {
-        return totalMyStamps;
-    }
-
-    /**
-     * @param totalMyStamps the totalMyStamps to set
-     */
-    public void setTotalMyStamps(Long totalMyStamps) {
-        this.totalMyStamps = totalMyStamps;
-    }
-
-    /**
-     * @return the totalMyOffers
-     */
-    public Long getTotalMyOffers() {
-        return totalMyOffers;
-    }
-
-    /**
-     * @param totalMyOffers the totalMyOffers to set
-     */
-    public void setTotalMyOffers(Long totalMyOffers) {
-        this.totalMyOffers = totalMyOffers;
-    }
-
-    /**
-     * @return the visibleShareToFriend
-     */
-    public boolean isVisibleShareToFriend() {
-        return visibleShareToFriend;
-    }
-
-    /**
-     * @param visibleShareToFriend the visibleShareToFriend to set
-     */
-    public void setVisibleShareToFriend(boolean visibleShareToFriend) {
-        this.visibleShareToFriend = visibleShareToFriend;
-    }
 
 }
