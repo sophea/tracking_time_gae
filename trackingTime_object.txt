@@ -1,0 +1,16 @@
+Domain TrackingTime : Field should have
+
+Id - long
+userId - long
+subject: string - Java programming
+description : string - lesson ch1 - java basic
+hours : long - number of teaching 3h
+date : date - teaching date
+dateType:String  weekday or weekend
+forMonth - Long (1,2,3,...12) it is used for billing invoice in which month.
+state (1 pending, 2  approved, 3 paid, -1 - rejected) : long
+superUserId - long
+superComment - string
+createdDate - datetime 
+updatedDate - datetime
+
