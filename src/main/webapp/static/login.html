@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Authorization base on user type! Ugly Form</title>
+
+<link type="text/css" href="/css/blitzer/jquery-ui-1.8.17.custom.css"
+    rel="stylesheet" />
+</head>
+<body>
+    <h3>LogIn Authorization /verify login with resource owner   password</h3>
+        <table class="ui-widget ui-widget-content">
+            <thead class="ui-widget-header">
+                <tr>
+                    <th colspan="2">Login</th>
+                </tr>
+            </thead>
+            
+            <thead class="ui-widget-header">
+            <tbody>
+                <tr>
+                    <td><span>Login Name</span></td>
+                    <td><input type="text" id="loginNameVerifyLogin" /></td>
+                </tr>
+                <tr>
+                    <td><span>Password</span></td>
+                    <td><input type="text" id="passwordVerifyLogin" /></td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td><button id="verifyLoginButton">Submit</button></td>                                         
+                </tr>
+            </tbody>
+        </table>
+      
+      
+     <script type="text/javascript" src="/js/jquery-1.10.2.min.js"></script>
+      <script type="text/javascript" src="/js/jquery-ui-1.8.17.custom.min.js"></script>
+       <script type="text/javascript">
+            var endpointApiUrl ="/api/";
+            $.ajaxSetup({
+                cache : false,
+                data : null,
+            });
+            
+            function getBasicKey() {   
+                return "Basic d2ViYXBwOjFoMzJvOElTU0UwcWlVV3RkaFh6Mw==";
+            }
+            
+            $(function() { 
+                
+                //aout client credentials
+                  $.ajax({
+                    type : "POST",
+                    url  : "/api/oauth2/token",
+                    data : { grant_type : "client_credentials" },
+                    beforeSend : function(request){
+                           request.setRequestHeader('Authorization', getBasicKey()  );
+                    },
+                    dataType : "text",
+                    error   : function(jqXHR, textStatus, errorThrown) {                    
+                        alert("error " + textStatus.message);
+                    },
+                    success : function(data, textStatus, jqXHR) {
+                    
+                    },
+                    complete : function(jqXHR, textStatus) {
+                    
+                    }
+                });
+                
+            });
+                
+                  $("#verifyLoginButton").button().click(
+                          function() {
+                              $.ajax({
+                                  type        : "POST",
+                                  url         : "/api/oauth2/token",
+                                  data        : {
+                                      username : $("#loginNameVerifyLogin").val(),
+                                      password : $("#passwordVerifyLogin").val(),
+                                      grant_type : "password"
+                                  },
+                                  dataType    : "text",
+                                  error       : function(jqXHR, textStatus, errorThrown) {
+                                      console.log('getJSON request failed! ' + textStatus);
+                                      var json = JSON.parse(jqXHR.responseText);
+                                       alert(json.message);
+                                                  },
+                                  success     : function(data, textStatus, jqXHR) {
+                                                   alert('success');
+                                                   document.location.href='dashboard.html';
+                                }
+                                  
+                              });
+                          });
+                  
+            </script>
+</body>
+</html>
