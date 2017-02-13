@@ -61,7 +61,7 @@ public abstract class BaseService<T extends GenericDao<D>, D extends AbstractLon
     }
 
     @Transactional
-    public void create(D domain) {
+    public D create(D domain) {
         final Date currentDate = new Date();
         final Session currentSession = SecurityModule.getCurrentSession();
         final String userId = currentSession == null || currentSession.getUserAccountId() == null ? null : currentSession
@@ -73,6 +73,7 @@ public abstract class BaseService<T extends GenericDao<D>, D extends AbstractLon
         domain.setVersion(1L);
         dao.add(domain);
         LOG.debug("domain created with new id {}", domain.getId());
+        return domain;
     }
 
     public D createDomain() {

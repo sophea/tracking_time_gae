@@ -32,7 +32,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.google.appengine.api.utils.SystemProperty;
-import com.rupp.timetrack.service.TrackingTimeServiceImp;
+import com.rupp.timetrack.service.T3BackendServiceImp;
 import com.rupp.timetrack.service.UserAccountListener;
 import com.sma.common.gaesupport.web.BlobController;
 import com.sma.common.web.RestJsonExceptionResolver;
@@ -250,8 +250,8 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     }
     
     @Bean(initMethod = "init")
-    public TrackingTimeServiceImp trackingTimeServiceImp() {
-        return new TrackingTimeServiceImp();
+    public T3BackendServiceImp trackingTimeServiceImp() {
+        return new T3BackendServiceImp();
     }
     
 }
