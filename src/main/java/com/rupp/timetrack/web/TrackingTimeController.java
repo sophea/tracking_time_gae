@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -93,5 +94,30 @@ public class TrackingTimeController {
         trackingTime.setState(T3BackendServiceImp.PENDING);
         
         return new ResponseEntity<>(trackingTimeServiceImp.create(trackingTime), HttpStatus.OK);
+    }
+    
+    /**
+     * creating new record as json: userId is set current userLogin and state will be PENING mode
+     * @param trackingTime : fields to send
+     *          <pre>
+     *        (mandatory)
+                 subject:  java
+                 hours : 3
+                 date : yyyy-MM-dd
+                 forMonth:  1
+                 forYear: 2017
+                 dateType: weekday or weekend
+                 description :  ch01
+                </pre>
+     * @param request
+     */
+    @RestReturn(highlightApiMessage = "create Tracking Time record as json: app-side",
+            value = TrackingTime.class, entity = TrackingTime.class, codes = { @RestCodes(codes = "200,401,404,500") })
+    @RequestMapping(value = "v1/json", method = { RequestMethod.POST })
+    @Authorization(userRoles = {UserRole.ROLE_USER_PWD} )
+    public ResponseEntity<TrackingTime> createNewRecordAsJson(HttpServletRequest request, @RequestBody TrackingTime trackingTime) {
+        
+        LOG.debug("create new record as json");
+        return createNewRecord(request, trackingTime);
     }
 }

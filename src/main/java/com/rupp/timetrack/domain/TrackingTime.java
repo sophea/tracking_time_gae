@@ -11,45 +11,58 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class TrackingTime extends AbstractLongDomainEntity {
     @Id
     private Long id;
+    /**current user id*/
     @Basic
     private Long userId;
-    /** subject: string - Java programming*/
+    /**subject: string - Java programming*/
     @Basic
     private String subject;
-    //description : string - lesson ch1 - java basic
+    /**description : string - lesson ch1 - java basic*/
     @Basic
     private String description;
     
-    //hours : long - number of teaching 3h
+    /**hours : long - number of teaching 3h*/
     @Basic
     private Long hours;
-    //date : date - teaching date
+    /**
+     * date : create date - teaching date
+     */
     @Basic
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date;
     
-    //dateType:String  weekday or weekend
+    /**dateType:String  weekday or weekend*/
     @Basic
     private String dateType;
     
-    //forMonth - Long (1,2,3,...12) it is used for billing invoice in which month.
+    /**
+     * forMonth - Long (1,2,3,...12) it is used for billing invoice in which month.
+     * */
     @Basic
     private Long forMonth;
     
-    //forMonth - Long (2017)
+    /**
+     * forYear - Long (2017) used for billing invoice in which year 
+     */
     @Basic
     private Long forYear;
     
-    //state (1 pending, 2  approved, 3 paid, -1 - rejected) : long
+    /**
+     * state (1 pending, 2  approved, 3 paid, -1 - rejected) : long
+     */
     @Basic
     private Long state;
     
-    //superUserId - long
+    /**
+     * superUserId - long admin user id to approved or reject
+     */
     @Basic
     private Long superUserId;
     
-    //superComment - string
+    /**
+     * superComment - string
+     */
     @Basic
     private String superComment;
 

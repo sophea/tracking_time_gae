@@ -56,7 +56,7 @@
         <application.version>${project.version}</application.version>
         <logging.level>ALL</logging.level>
         <downloadSources>true</downloadSources>
-        <docrest-version>1.40</docrest-version>
+        <docrest-version>1.41</docrest-version>
         <devserver.port>8080</devserver.port>
         <json.diagnosticsDisabled>false</json.diagnosticsDisabled>
         <json.errormsg />
