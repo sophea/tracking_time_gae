@@ -235,8 +235,8 @@ $(window).load(function () {
       * @param error
       */
      function JsonException(rootElement, error) {
-         rootElement.find("pre").empty();
-         rootElement.find("pre").append(error);
+         rootElement.find("#pre-response-body").empty();
+         rootElement.find("#pre-response-body").append(error);
          rootElement.find(".response_body").show(function () {
              $(this).animate({
                  height: 'auto'
@@ -307,6 +307,15 @@ $(window).load(function () {
              cache: false,
              crossDomain: true
          });
+         var curl = populateCurl(url, requestMethod, data, contentType);
+         rootElement.find("#curl").empty();
+         rootElement.find("#curl").append(helper.encodeHtmlEntity(curl));
+         rootElement.find("#curl").append(helper.SPAN);
+         rootElement.find(".curl-area").show(function () {
+             $(this).animate({
+                 height: 'auto'
+             });
+         });
          $.ajax({
                  url: url,
                  type: requestMethod,
@@ -317,12 +326,12 @@ $(window).load(function () {
              .done(function (data) {
                  console.log(data);
                  try {
-                     rootElement.find("pre").empty();    
-                     rootElement.find("pre").append(helper.encodeHtmlEntity(JSON.stringify(data, null, 4)));
-                     rootElement.find("pre").append(helper.SPAN);
+                     rootElement.find("#pre-response-body").empty();    
+                     rootElement.find("#pre-response-body").append(helper.encodeHtmlEntity(JSON.stringify(data, null, 4)));
+                     rootElement.find("#pre-response-body").append(helper.SPAN);
                  } catch (e) {
-                     rootElement.find("pre").append(data);
-                     rootElement.find("pre").append(helper.SPAN);
+                     rootElement.find("#pre-response-body").append(data);
+                     rootElement.find("#pre-response-body").append(helper.SPAN);
                  }
                  rootElement.find(".response_body").show(function () {
                      $(this).animate({
@@ -335,17 +344,17 @@ $(window).load(function () {
                  // show any errors
                  // best to remove for production
                  console.log(data);
-                 rootElement.find("pre").empty();
+                 rootElement.find("#pre-response-body").empty();
                  try {
-                     rootElement.find("pre").append(JSON.stringify(JSON.parse(data.responseText), null, 4));
-                     rootElement.find("pre").append(helper.SPAN);
+                     rootElement.find("#pre-response-body").append(JSON.stringify(JSON.parse(data.responseText), null, 4));
+                     rootElement.find("#pre-response-body").append(helper.SPAN);
                  } catch (e) {
                      if (data.status == 404) {
-                         rootElement.find("pre").append(helper.encodeHtmlEntity(data.responseText));
-                         rootElement.find("pre").append(helper.SPAN);
+                         rootElement.find("#pre-response-body").append(helper.encodeHtmlEntity(data.responseText));
+                         rootElement.find("#pre-response-body").append(helper.SPAN);
                      }else if (data.status == 0){
-                    	 rootElement.find("pre").append(getErrorMessage());
-                         rootElement.find("pre").append(helper.SPAN);
+                    	 rootElement.find("#pre-response-body").append(getErrorMessage());
+                         rootElement.find("#pre-response-body").append(helper.SPAN);
                      }
                  }
                  rootElement.find(".response_body").show(function () {
@@ -355,12 +364,58 @@ $(window).load(function () {
                  });
              });
      }
+
+     /*
+      * Support method: POST, GET, DELETE, PUT
+      * Support content type: "application/json", "application/x-www-form-urlencoded"
+      * Not support : "multipart/form-data"
+      * */
+     function populateCurl(url, requestMethod, data, contentType) {
+         var cUrl = [];
+        // generate method
+        cUrl.push('-X ' + requestMethod.toUpperCase());
+
+        // generate headers
+        if (!contentType) {
+            contentType = "application/json;charset=UTF-8";
+        }
+
+        if (typeof contentType == 'string') {
+            contentType = contentType.replace(/\'/g, '\\u0027');
+        }
+        cUrl.push('--header \'Content-Type : ' + contentType + '\'');
+
+        // generate data
+        var isFormData = false;
+        var isMultipart = false;
+
+        var type = contentType;
+        if (type && type.indexOf('application/x-www-form-urlencoded') === 0) {
+            isFormData = true;
+        } else if (type && type.indexOf('multipart/form-data') === 0) {
+            isFormData = true;
+            isMultipart = true;
+        }
+        if (data) {
+            var requestData;
+            var body = "";
+            if (isFormData) {
+                // escape single quote
+                body = data.replace(/\'/g, '%27');
+            } else {
+             // escape single quote
+                body = data.replace(/\'/g, '\\u0027');
+            }
+            cUrl.push('-d \'' + body + '\'');
+        }
+        return 'curl ' + (cUrl.join(' ')) + ' \'' + url + '\'';
+     }
      
      /**
-      * Method : getURL
-      * Description : get server endpoint url
-      * @param rootElement 
-      */
+         * Method : getURL Description : get server endpoint url
+         * 
+         * @param rootElement
+         */
      function getURL(rootElement) {
          if (rootElement.find(".url_request").val() === "" && rootElement.find(".url_request").is(":visible")) {
              throw new InvalidArgumentException("Please enter url");
@@ -465,6 +520,12 @@ $(window).load(function () {
              url, requestMethod, contentType, data;
 
          rootElement.find(".response_body").hide(function () {
+             $(this).animate({
+                 height: 'auto'
+             });
+         });
+         
+         rootElement.find(".curl-area").hide(function () {
              $(this).animate({
                  height: 'auto'
              });
@@ -922,7 +983,14 @@ $(window).load(function () {
     	 
      });
      
-
+     $(document).on ("click",".api-slide-toggle-all",function () {
+         //$(this).next().next().slideToggle();
+         var buttonAPISlideToggle = $('.api-slide-toggle-all');
+         $(".api-slide-toggle").closest(".row").next().slideToggle(function () {
+             $(this).is(':hidden') ? buttonAPISlideToggle.text('Expand') : buttonAPISlideToggle.text('Collapse');
+         });
+     });
+     
      /**
       * Event : click 
       * Description : toggle api-parent

@@ -179,10 +179,302 @@
                                     
                                                                   
                                                                
+                                                                                                                                                                                                       
+                                                                  
+                            
+                                                                     },
+                                                                          "/trackingtime/v1" : {
+                                        "post" : {
+                                                                                "description": "creating new record : userId is set current userLogin and state will be PENING mode",
+                                        "operationId": "createNewRecord3",
+                                                                                  "summary" : "[ROLE_USER_PWD] create Tracking Time record : app-side",
+                                                                                 
+                                        "parameters":[
+                                                                                                                                                                
+                                        
+                                                                                
+                                        
+                                        ],
+                                        
+                                        "responses" : {
+                                        
+                                        "default": {
+                                            "description": "Unexpected error"
+                                        }
+                                        
+                                                                                                                                                                        
+                                                                                        
+                                            
+                                                                                                                                
+                                                                                        
+                                            
+                                                                                                                                
+                                                                                        
+                                            
+                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                                                                ,
+                                                                "200" : {
+                                                                                                                                                                        "schema": {
+                
+                                    "$ref": "#/definitions/com.rupp.timetrack.domain.TrackingTime"
+                                
+            },
+                
+
+                                                                                                                                                                                                                                                                                            "description" : "Success"
+                                                                                                                                                                                                                 
+                                                                }
+                                                        
+                                                                                                                                                                                                                                                                                                                            
+                                                                ,
+                                                                "401" : {
+                                                                                                                                                                                                                                                                                            "description" : "You are not authenticated"
+                                                                                                                                                                                                                 
+                                                                }
+                                                        
+                                                                                                                                                                                                                                                                                                                            
+                                                                ,
+                                                                "404" : {
+                                                                                                                                                                                                                                                                                            "description" : "Object not found"
+                                                                                                                                                                                                                 
+                                                                }
+                                                        
+                                                                                                                                                                                                                                                                                                                            
+                                                                ,
+                                                                "500" : {
+                                                                                                                                                                                                                                                                                           "description" : "The server encountered an error"
+                                                                                                                                                                                                                 
+                                                                }
+                                                        
+                                                                                                                                                                                                                                                                                                                                                                                
+                                            
+                                                                                
+                                        }
+                                        
+                                    }
+                                        
+                                                                  
+                                                               
+                                                                                                                                                                                        
+                                                                  
+                            
+                                                                     },
+                                                                          "/trackingtime/v1/json" : {
+                                        "post" : {
+                                                                                "description": "creating new record as json: userId is set current userLogin and state will be PENING mode",
+                                        "operationId": "createNewRecordAsJson4",
+                                                                                  "summary" : "[ROLE_USER_PWD] create Tracking Time record as json: app-side",
+                                                                                 
+                                        "parameters":[
+                                                                                                                                                                
+                                        
+                                                                                                                                {
+                                                "name": "trackingTime",
+                                                "in": "body",
+                                                "description": ": fields to send
+          <pre>
+        (mandatory)
+                 subject:  java
+                 hours : 3
+                 date : yyyy-MM-dd
+                 forMonth:  1
+                 forYear: 2017
+                 dateType: weekday or weekend
+                 description :  ch01
+                </pre>",
+                                                "required": true,
+                                                "schema": {
+                                                              "$ref": "#/definitions/com.rupp.timetrack.domain.TrackingTime"
+                                                    }
+                                            }
+                                            
+                                                                                
+                                        
+                                        ],
+                                        
+                                        "responses" : {
+                                        
+                                        "default": {
+                                            "description": "Unexpected error"
+                                        }
+                                        
+                                                                                                                                                                        
+                                                                                        
+                                            
+                                                                                                                                
+                                                                                        
+                                            
+                                                                                                                                
+                                                                                        
+                                            
+                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                                                                ,
+                                                                "200" : {
+                                                                                                                                                                        "schema": {
+                
+                                    "$ref": "#/definitions/com.rupp.timetrack.domain.TrackingTime"
+                                
+            },
+                
+
+                                                                                                                                                                                                                                                                                            "description" : "Success"
+                                                                                                                                                                                                                 
+                                                                }
+                                                        
+                                                                                                                                                                                                                                                                                                                            
+                                                                ,
+                                                                "401" : {
+                                                                                                                                                                                                                                                                                            "description" : "You are not authenticated"
+                                                                                                                                                                                                                 
+                                                                }
+                                                        
+                                                                                                                                                                                                                                                                                                                            
+                                                                ,
+                                                                "404" : {
+                                                                                                                                                                                                                                                                                            "description" : "Object not found"
+                                                                                                                                                                                                                 
+                                                                }
+                                                        
+                                                                                                                                                                                                                                                                                                                            
+                                                                ,
+                                                                "500" : {
+                                                                                                                                                                                                                                                                                           "description" : "The server encountered an error"
+                                                                                                                                                                                                                 
+                                                                }
+                                                        
+                                                                                                                                                                                                                                                                                                                                                                                
+                                            
+                                                                                
+                                        }
+                                        
+                                    }
+                                        
+                                                                  
+                                                               
+                                                                                                                                                                                        
+                                                                  
+                            
+                                                                     },
+                                                                          "/trackingtime/v1/me" : {
+                                        "get" : {
+                                                                                "description": "get my tracking",
+                                        "operationId": "getMyTracking5",
+                                                                                  "summary" : "[ROLE_USER_PWD] get my Tracking times : app-side",
+                                                                                 
+                                        "parameters":[
+                                                                                                                                                                
+                                        
+                                                                                
+                                        
+                                        ],
+                                        
+                                        "responses" : {
+                                        
+                                        "default": {
+                                            "description": "Unexpected error"
+                                        }
+                                        
+                                                                                                                                                                        
+                                                                                        
+                                            
+                                                                                                                                
+                                                                                        
+                                            
+                                                                                                                                
+                                                                                        
+                                            
+                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                                                                ,
+                                                                "200" : {
+                                                                                                                                                                        "schema": {
+                
+                                    "$ref": "#/definitions/com.rupp.timetrack.domain.TrackingTime"
+                                
+            },
+                
+
+                                                                                                                                                                                                                                                                                            "description" : "Success"
+                                                                                                                                                                                                                 
+                                                                }
+                                                        
+                                                                                                                                                                                                                                                                                                                            
+                                                                ,
+                                                                "401" : {
+                                                                                                                                                                                                                                                                                            "description" : "You are not authenticated"
+                                                                                                                                                                                                                 
+                                                                }
+                                                        
+                                                                                                                                                                                                                                                                                                                            
+                                                                ,
+                                                                "404" : {
+                                                                                                                                                                                                                                                                                            "description" : "Object not found"
+                                                                                                                                                                                                                 
+                                                                }
+                                                        
+                                                                                                                                                                                                                                                                                                                            
+                                                                ,
+                                                                "500" : {
+                                                                                                                                                                                                                                                                                           "description" : "The server encountered an error"
+                                                                                                                                                                                                                 
+                                                                }
+                                                        
+                                                                                                                                                                                                                                                                                                                                                                                
+                                            
+                                                                                
+                                        }
+                                        
+                                    }
+                                        
+                                                                  
+                                                               
                                                                                                                             }
 },
 "definitions":{
-            "com.rupp.timetrack.domain.UserProfile":{
+            "com.rupp.timetrack.domain.TrackingTime":{
+        "type": "object",
+        "properties":{
+                                                        "id":{"type" : "integer", "format" : "int64"}
+    
+                
+                                                                                    ,            "userId":{"type" : "integer", "format" : "int64"}
+    
+                
+                                                                                    ,            "subject":{"type" : "string"}
+    
+                
+                                                                                    ,            "description":{"type" : "string"}
+    
+                
+                                                                                    ,            "hours":{"type" : "integer", "format" : "int64"}
+    
+                
+                                                                                    ,            "date":{"type":"string", "format" : "date"}
+    
+                
+                                                                                    ,            "dateType":{"type" : "string"}
+    
+                
+                                                                                    ,            "forMonth":{"type" : "integer", "format" : "int64"}
+    
+                
+                                                                                    ,            "state":{"type" : "integer", "format" : "int64"}
+    
+                
+                                                                                    ,            "superUserId":{"type" : "integer", "format" : "int64"}
+    
+                
+                                                                                    ,            "superComment":{"type" : "string"}
+    
+                
+                                                                                    ,            "forYear":{"type" : "integer", "format" : "int64"}
+    
+                
+                                                                }
+        }
+    ,        "com.rupp.timetrack.domain.UserProfile":{
         "type": "object",
         "properties":{
                                                         "userId":{"type" : "integer", "format" : "int64"}

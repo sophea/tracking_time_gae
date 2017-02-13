@@ -492,7 +492,7 @@ function populateResponseBody() {
     label = populateElement("label", null, null, "Response Body:");
     span = populateElement("span");
     pre = populateElement("pre", {
-        "style": "background-color: #ffffff; position:relative;"
+        "style": "background-color: #ffffff; position:relative;", id:"pre-response-body"
     },toArray(span));
     column = populateElement("div", {
         "class": "col-md-8 col-md-offset-2"
@@ -501,8 +501,29 @@ function populateResponseBody() {
         "class": "row response_body"
     }, toArray(column));
 }
-/** <<<<< End : populateResponseBody >>>>> */
+/** <<<<< End : populateResponseBody >>>>> **/
 
+/*
+ * Method: populateCurlElement
+ * Description: populate curl area
+ * */
+function populateCurlElement(){
+    
+    var pre, label, column, span;
+    label = populateElement("label", null, null, "Curl");
+    span = populateElement("span");
+    pre = populateElement("pre", {
+        "style": "background-color: #ffffff; position:relative;", id:"curl"
+    },toArray(span));
+    column = populateElement("div", {
+        "class": "col-md-8 col-md-offset-2"
+    }, toArray(label, pre));
+    return populateElement("div", {
+        "class": "row curl-area hide-element"
+    }, toArray(column));
+}
+
+/* <<<<<<< End: populateCurl >>>>>>>>>*/
 
 /**
  * Method : populateTemplate
@@ -582,6 +603,7 @@ function populateAPI(index, contentType, requestMethod, restPath, keyValuePairs,
 	rows.push ( populateRequestParam(keyValuePairs) );
 	rows.push ( populateAccessToken() );
 	rows.push ( populateRequestBody(index) );
+	rows.push ( populateCurlElement() );
 	rows.push ( populateResponseBody() );
 
     return populateElement("div", { "class": "api well wellCustom", "data-content-type" : contentType }, rows);
@@ -796,7 +818,7 @@ var dialog = function (urls) {
 
     var popUpDialog = populateElement("button", {
         "type": "button",
-        "class": "btn btn-md btn-dialog-popup",
+        "class": "btn btn-md btn-dialog-popup hidden-print",
         "data-toggle": "modal",
         "data-target": "#auth-dialog-modal",
         "style": "margin-bottom: 20px"
