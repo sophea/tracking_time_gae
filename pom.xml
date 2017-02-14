@@ -69,7 +69,7 @@
          <dependency>
             <groupId>com.sma.security</groupId>
             <artifactId>sm-user-security</artifactId>
-            <version>1.8</version>
+            <version>1.11</version>
          </dependency>
          
          <dependency>
