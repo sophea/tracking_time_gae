@@ -6,7 +6,7 @@ subject: string - Java programming
 description : string - lesson ch1 - java basic
 hours : long - number of teaching 3h
 date : date - teaching date
-dateType:String  weekday or weekend
+dateType: String  weekday or weekend
 forMonth - Long (1,2,3,...12) it is used for billing invoice in which month.
 forYear - Long 2016 2017
 state (1 pending, 2  approved, 3 paid, -1 - rejected) : long
