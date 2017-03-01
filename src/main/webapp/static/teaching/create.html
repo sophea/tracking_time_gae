@@ -100,19 +100,76 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Tasks to do :
+                            New teaching time
                         </div>
                         <div class="panel-body">
                             <div class="row">
                             	<div class="col-md-10">
-			    					<ol>
-			    						<li>call get my profile  API : GET /api/profile/v1/me</li>
-									    <li>create a form filling-up teaching time</li>
-									    <li>manage navigation link ( my Profile | manage users | report )  : GET /api/oauth2/user/v1/me</li>
-									    <li>user role as teacher  (ROLE_USER_PWD)- it can see my Profile | my time logs | create new time log</li>
-									    <li>user role director/staff (ROLE_ADMIN) : see all manage users | report</li>
-									    <li>export report summary for each teacher filtering by month</li>
-			    					</ol>
+                            		<form class="form-horizontal">
+									    <div class="form-group">
+									      <label class="control-label col-sm-2" for="userId">User ID</label>
+									      <div class="col-sm-10">
+									        <input type="text" class="form-control" readonly id="userId" name="userId" value="">
+									      </div>
+									    </div>
+									    
+									    <div class="form-group">
+									      <label class="control-label col-sm-2" for="subject">Subject:</label>
+									      <div class="col-sm-10">          
+									        <select class="form-control" id="subject" name="subject">
+											    <option value="Artificial Intelligent">Artificial Intelligent</option>
+											    <option value="Research Methodolog">Research Methodology</option>
+											    <option value="Java programming">Java programming</option>
+											    <option value="User Interface Design">User Interface Design</option>
+											    <option value="Scientific Experience">Scientific Experience</option>
+											  </select>
+									      </div>
+									    </div>
+									    
+									     <div class="form-group">
+									      <label class="control-label col-sm-2" for="description">Description</label>
+									      <div class="col-sm-10">
+									        <textarea class="form-control" rows="5" id="description" name="description"></textarea>
+									      </div>
+									    </div>
+									    
+									    <div class="form-group">
+									      <label class="control-label col-sm-2" for="description">Hours</label>
+									      <div class="col-sm-10">
+									        <select class="form-control" id="hours" name="hours">
+											    <option value="1">1</option>
+											    <option value="2">2</option>
+											    <option value="3">3</option>
+											    <option value="4">4</option>
+											    <option value="5">5</option>
+											    <option value="3">6</option>
+											    <option value="4">7</option>
+											    <option value="5">8</option>
+											  </select>
+									      </div>
+									    </div>
+									    
+									    <div class="form-group">
+									      <label class="control-label col-sm-2" for="date">Date</label>
+									      <div class="col-sm-10">
+									        <input type="date" class="form-control" id="date" name="date" placholder="Format: Y-m-d">
+									      </div>
+									    </div>
+									   
+									    <div class="form-group">
+									      <label class="control-label col-sm-2" for="dateType">Date type</label>
+									      <div class="col-sm-10">
+									        <label class="radio-inline"><input type="radio" checked name="dateType" value="weekday">Weekday</label>
+											<label class="radio-inline"><input type="radio" name="dateType" value="weekend">Weekend</label>
+									      </div>
+									    </div>
+									    
+									    <div class="form-group">        
+									      <div class="col-sm-offset-2 col-sm-10">
+									        <button type="submit" class="btn btn-default">Submit</button>
+									      </div>
+									    </div>
+									  </form>
                             	</div>
                             </div>
                         </div>
