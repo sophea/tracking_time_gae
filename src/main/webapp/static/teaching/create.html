@@ -23,6 +23,8 @@
 
     <!-- Custom Fonts -->
     <link href="../admin-theme/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="../css/custom.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -61,7 +63,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="../login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                 </li>
@@ -71,7 +73,7 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="/dashboard.html"><i class="fa fa-dashboard fa-fw" aria-hidden="true"></i> Dashboard</a>
+                            <a href="../index.html"><i class="fa fa-dashboard fa-fw" aria-hidden="true"></i> Dashboard</a>
                         </li>
                         <li class="">
                             <a href="#"><i class="fa fa-clock-o" aria-hidden="true"></i> Teaching Time<span class="fa arrow"></span></a>
@@ -107,16 +109,9 @@
                             	<div class="col-md-10">
                             		<form class="form-horizontal">
 									    <div class="form-group">
-									      <label class="control-label col-sm-2" for="userId">User ID</label>
-									      <div class="col-sm-10">
-									        <input type="text" class="form-control" readonly id="userId" name="userId" value="">
-									      </div>
-									    </div>
-									    
-									    <div class="form-group">
 									      <label class="control-label col-sm-2" for="subject">Subject:</label>
 									      <div class="col-sm-10">          
-									        <select class="form-control" id="subject" name="subject">
+									        <select required class="form-control" id="subject" name="subject">
 											    <option value="Artificial Intelligent">Artificial Intelligent</option>
 											    <option value="Research Methodolog">Research Methodology</option>
 											    <option value="Java programming">Java programming</option>
@@ -126,25 +121,18 @@
 									      </div>
 									    </div>
 									    
-									     <div class="form-group">
-									      <label class="control-label col-sm-2" for="description">Description</label>
-									      <div class="col-sm-10">
-									        <textarea class="form-control" rows="5" id="description" name="description"></textarea>
-									      </div>
-									    </div>
-									    
 									    <div class="form-group">
 									      <label class="control-label col-sm-2" for="description">Hours</label>
 									      <div class="col-sm-10">
-									        <select class="form-control" id="hours" name="hours">
+									        <select required class="form-control" id="hours" name="hours">
 											    <option value="1">1</option>
 											    <option value="2">2</option>
-											    <option value="3">3</option>
+											    <option selected value="3">3</option>
 											    <option value="4">4</option>
 											    <option value="5">5</option>
-											    <option value="3">6</option>
-											    <option value="4">7</option>
-											    <option value="5">8</option>
+											    <option value="6">6</option>
+											    <option value="7">7</option>
+											    <option value="8">8</option>
 											  </select>
 									      </div>
 									    </div>
@@ -152,21 +140,55 @@
 									    <div class="form-group">
 									      <label class="control-label col-sm-2" for="date">Date</label>
 									      <div class="col-sm-10">
-									        <input type="date" class="form-control" id="date" name="date" placholder="Format: Y-m-d">
+									      	<input type="text" required class="form-control" id="date" name="date" placeholder="Enter date with format dd-mm-yyyy" />
+									      </div>
+									    </div>
+									    
+									    <div class="form-group">
+									      <label class="control-label col-sm-2" for="forMonth">For month</label>
+									      <div class="col-sm-10">
+									        <select required class="form-control" id="forMonth" name="forMonth">
+											    <option value="1">1</option>
+											    <option value="2">2</option>
+											    <option value="3">3</option>
+											    <option value="4">4</option>
+											    <option value="5">5</option>
+											    <option value="6">6</option>
+											    <option value="7">7</option>
+											    <option value="8">8</option>
+											    <option value="9">9</option>
+											    <option value="10">10</option>
+											    <option value="11">11</option>
+											    <option value="12">12</option>
+											  </select>
+									      </div>
+									    </div>
+									    
+									    <div class="form-group">
+									      <label class="control-label col-sm-2" for="forYear">For year</label>
+									      <div class="col-sm-10">
+									      	<input type="text" required class="form-control" id="forYear" name="forYear" maxlength="4" placeholder="Enter year with format yyyy" />
 									      </div>
 									    </div>
 									   
 									    <div class="form-group">
 									      <label class="control-label col-sm-2" for="dateType">Date type</label>
 									      <div class="col-sm-10">
-									        <label class="radio-inline"><input type="radio" checked name="dateType" value="weekday">Weekday</label>
-											<label class="radio-inline"><input type="radio" name="dateType" value="weekend">Weekend</label>
+									        <label class="radio-inline"><input type="radio" id="weekday" checked name="dateType" value="weekday">Weekday</label>
+											<label class="radio-inline"><input type="radio" id="weekend" name="dateType" value="weekend">Weekend</label>
+									      </div>
+									    </div>
+									    
+									     <div class="form-group">
+									      <label class="control-label col-sm-2" for="description">Description</label>
+									      <div class="col-sm-10">
+									        <textarea required class="form-control textarea" rows="5" id="description" name="description"></textarea>
 									      </div>
 									    </div>
 									    
 									    <div class="form-group">        
 									      <div class="col-sm-offset-2 col-sm-10">
-									        <button type="submit" class="btn btn-default">Submit</button>
+									        <button type="button" id="newTrackingTime" class="btn btn-default">Submit</button>
 									      </div>
 									    </div>
 									  </form>
@@ -181,7 +203,8 @@
     
     <!-- jQuery -->
     <script src="../admin-theme/vendor/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+   <!--  <script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script type="text/javascript" src="../js/jquery-ui-1.8.17.custom.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
@@ -191,8 +214,63 @@
     <script src="../admin-theme/vendor/metisMenu/metisMenu.min.js"></script>
     
     <!-- Custom Theme JavaScript -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="../admin-theme/dist/js/sb-admin-2.js"></script>
+    
+    <!-- http://www.texotela.co.uk/code/jquery/numeric/ -->
+    <script type="text/javascript" src="../js/jquery.numeric.min.js"></script>
+    
     <script type="text/javascript" src="../js/custom.js"></script>
-
+	  <script>
+		  $( function() {
+		    $('#date').datepicker({
+		    	dateFormat: 'dd-mm-yy'
+		    });
+		    
+		    $('#forYear').numeric().val(function() {
+		    	return new Date().getFullYear();
+		    });
+		    
+		    $('#forMonth').val(function() {
+		    	return (new Date().getMonth()) + 1;
+		    });
+		    
+		    $('#newTrackingTime').click(function(e) {
+		    	var dateType = 'weekday',
+		    		date = $('#date').val().split('-').reverse().join('-');
+		    	if ($('#weekend').is(':checked')) {
+		    		dateType = 'weekend';
+		    	}
+		    	
+		    	var data =  {
+		        	subject     : $('#subject').val(),
+		        	description : $('#description').val(),
+		        	hours       : $('#hours').val(),
+		        	date        : date,
+		        	forMonth    : $('#forMonth').val(),
+		        	forYear    : $('#forYear').val(),
+		        	dateType    : dateType
+		        };
+		    	
+		    	$.ajax({
+		            type        : 'POST',
+		            url         : '/api/trackingtime/v1',
+		            data        : data,
+		            dataType    : 'text',
+		            error       : function(jqXHR, textStatus, errorThrown) {
+		                console.log('getJSON request failed! ' + textStatus);
+		                var json = JSON.parse(jqXHR.responseText);
+		                alert(json.message);
+		            },
+		            success     : function(data, textStatus, jqXHR) {
+		                            document.location.href='index.html';
+		          }
+		            
+		        });
+		    	e.preventDefault(e);
+		    	return false;
+		    });
+		  });
+	  </script>
 </body>
 </html>
