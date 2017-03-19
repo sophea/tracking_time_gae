@@ -8,8 +8,8 @@ function getBasicKey() {
     return "Basic d2ViYXBwOjFoMzJvOElTU0UwcWlVV3RkaFh6Mw==";
 }
 
-$(function() { 
-    //aout client credentials
+$(document).ready(function() {
+    //oauth client credentials
       $.ajax({
         type : "POST",
         url  : "/api/oauth2/token",
@@ -21,12 +21,8 @@ $(function() {
         error   : function(jqXHR, textStatus, errorThrown) {                    
             alert("error " + textStatus.message);
         },
-        success : function(data, textStatus, jqXHR) {
-        	
-        },
-        complete : function(jqXHR, textStatus) {
-        
-        }
+        success : function(data, textStatus, jqXHR) {},
+        complete : function(jqXHR, textStatus) {}
     });
 });
     
@@ -44,10 +40,10 @@ $("#verifyLoginButton").button().click(function() {
             console.log('getJSON request failed! ' + textStatus);
             var json = JSON.parse(jqXHR.responseText);
              alert(json.message);
-                        },
+        },
         success     : function(data, textStatus, jqXHR) {
-                         document.location.href='index.html';
-      }
-        
+        	window.cookie.setCookie(window.params.cookieKey, data, window.params.expireDay);
+        	document.location.href = 'index.html';
+        }
     });
 });
