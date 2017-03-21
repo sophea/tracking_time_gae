@@ -56,7 +56,7 @@
         <application.version>${project.version}</application.version>
         <logging.level>ALL</logging.level>
         <downloadSources>true</downloadSources>
-        <docrest-version>1.41</docrest-version>
+        <docrest-version>2.0.0</docrest-version>
         <devserver.port>8080</devserver.port>
         <json.diagnosticsDisabled>false</json.diagnosticsDisabled>
         <json.errormsg />
@@ -69,7 +69,7 @@
          <dependency>
             <groupId>com.sma.security</groupId>
             <artifactId>sm-user-security</artifactId>
-            <version>1.11</version>
+            <version>1.18</version>
          </dependency>
          
          <dependency>
@@ -447,42 +447,60 @@
      <profile>
             <id>javadoc</id>
             <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.8</version>
-                        <configuration>
-                            <additionalparam>-basePath ${swagger.basePath} -baseUrl ${endpoint.apiUrl} -clientId ${endpoint.clientId}</additionalparam>
-                            <author>false</author>
-                            <doclet>com.wadpam.docrest.DocRestDoclet</doclet>
-                            <docletArtifact>
-                                <groupId>com.wadpam</groupId>
-                                <artifactId>docrest-doclet</artifactId>
-                                <version>${docrest-version}</version>
-                            </docletArtifact>
-                            <encoding>UTF-8</encoding>
-                            <javadocExecutable>${javadocExecutable}</javadocExecutable>
-                            <!-- 
-                             <reportOutputDirectory>${project.basedir}/src/main/webapp/static/rest-api/site</reportOutputDirectory>
-                             -->
-                            <sourcepath>src/main/java</sourcepath>
-                            <useStandardDocletOptions>false</useStandardDocletOptions>
-                            <verbose>true</verbose>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>javadoc-docrest</id>
-                                <phase>process-resources</phase>
-                                <goals>
-                                    <goal>javadoc</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    
-                 
-                </plugins>
+            <plugins>
+                <plugin>
+                  <artifactId>maven-dependency-plugin</artifactId>
+                  <executions>
+                    <execution>
+                      <phase>package</phase>
+                      <goals>
+                        <goal>copy-dependencies</goal>
+                      </goals>
+                      <configuration>
+                        <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                      </configuration>
+                    </execution>
+                  </executions>
+                </plugin>
+                <plugin>
+                  <artifactId>maven-antrun-plugin</artifactId>
+                  <version>1.8</version>
+                  <executions>
+                    <execution>
+                      <phase>package</phase>
+                      <configuration>
+                        <!-- output dirs -->
+                        <target name="docrest">
+                          <property name="build.dir" location="target" />
+                          <property name="lib.dir" location="${build.dir}/lib" />
+                          <property name="classes" value="${build.dir}/classes" />
+                          <path id="buildClasspath">
+                            <fileset dir="${lib.dir}">
+                              <include name="**/*.jar" />
+                              <exclude name="test/**" />
+                            </fileset>
+                            <pathelement location="${classes}" />
+                          </path>
+                          <javadoc sourcepath="src/main/java" author="false"
+                            encoding="UTF-8" source="1.7" classpathref="buildClasspath"
+                            verbose="false">
+                            <doclet name="com.wadpam.docrest.DocRestDoclet"
+                              pathref="buildClasspath">
+                              <param name="-basePath" value="unknown" />
+                              <param name="-baseUrl" value="unknown" />
+                              <param name="-clientId" value="unknown" />
+                              <param name="-d" value="${build.dir}/docrest/${project.artifactId}/${project.version}" />
+                            </doclet>
+                          </javadoc>
+                        </target>
+                      </configuration>
+                      <goals>
+                        <goal>run</goal>
+                      </goals>
+                    </execution>
+                  </executions>
+                </plugin>
+              </plugins>
             </build>
         </profile>
   </profiles>
